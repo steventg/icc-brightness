@@ -21,9 +21,9 @@ cmsHPROFILE create_srgb_profile(double brightness)
     cmsMLUfree(mlu);
 
     cmsContext context_id = cmsCreateContext(NULL, NULL);
-    double curve_red[] = {0.9, brightness, 0.0};
-    double curve_green[] = {1.0, brightness, +0.07};
-    double curve_blue[] = {1.0, brightness, +0.07}; // gamma, a, b for (a X +b)^gamma
+    double curve_red[] = {0.97, brightness, -0.02};
+    double curve_green[] = {1.01, brightness, 0.02};
+    double curve_blue[] = {1.01, brightness, 0.02}; // gamma, a, b for (a X +b)^gamma
     cmsToneCurve *tone_curve[3] = {
 	    cmsBuildParametricToneCurve(context_id, 2, curve_red),
 	    cmsBuildParametricToneCurve(context_id, 2, curve_green),
