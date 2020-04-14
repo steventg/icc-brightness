@@ -21,11 +21,13 @@ cmsHPROFILE create_srgb_profile(double brightness)
     cmsMLUfree(mlu);
 
     cmsContext context_id = cmsCreateContext(NULL, NULL);
-    double curve[] = {1.0, brightness, 0.0}; // gamma, a, b for (a X +b)^gamma
+    double curve_red[] = {0.9, brightness, 0.0};
+    double curve_green[] = {1.0, brightness, +0.07};
+    double curve_blue[] = {1.0, brightness, +0.07}; // gamma, a, b for (a X +b)^gamma
     cmsToneCurve *tone_curve[3] = {
-	    cmsBuildParametricToneCurve(context_id, 2, curve),
-	    cmsBuildParametricToneCurve(context_id, 2, curve),
-	    cmsBuildParametricToneCurve(context_id, 2, curve),
+	    cmsBuildParametricToneCurve(context_id, 2, curve_red),
+	    cmsBuildParametricToneCurve(context_id, 2, curve_green),
+	    cmsBuildParametricToneCurve(context_id, 2, curve_blue),
     };
     cmsWriteTag(hsRGB, cmsSigVcgtTag, tone_curve);
     cmsFreeToneCurve(tone_curve[0]);
